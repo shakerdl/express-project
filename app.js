@@ -3,29 +3,21 @@
  const express = require("express");
  const app = express();
  require("dotenv").config();
-
+ const cars = require("./routes/Cars"); // here it's  make the cars variabel as a router object
+ const users = require("./routes/Users");
 let port = process.env.PORT;
 let host = process.env.HOST;
 
+app.use(express.json());  //handel all the incoming request looking  to say if there is json and convert it to object
 
 
- app.get('/shakerdl',(req,res)=>{    // in the method we are get the root and send it back the h1 via respond
-    //  console.log(req.headers);
-    console.log(req.url);
-    console.log(req.path);
-    console.log(req.ip);
-    console.log(req.method);
-    console.log(req.query); 
-    console.log(req.params); // here I"ll take  app.get("/user/45") or app.get("/user/:id")  req.params.id
+// app.use(sup);
+app.use("/Cars",cars);  
+// use the Cars.js file to handle 
+// endpoint that start with /Cars
 
-    
-
-
-
-
-     res.status(404).end();
- }); 
-
+app.use("/Users",users);  
+ 
  app.listen(port,host,(err)=> {
     if (err) {
         console.log('there is a problem',err);
